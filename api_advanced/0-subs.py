@@ -1,14 +1,16 @@
 #!/usr/bin/python3
 
-'''
-This script returns the number of subscribers
-for a specific subredits
-'''
+# This script returns the number of subscribers
+# for a specific subredits
+
 import requests
 
 
 def number_of_subscribers(subreddit):
-
+    '''
+    This function returns the number of subscribers
+    for a specific subreddit
+    '''
     headers = {
         'User-Agent': 'linux:subcountscript:v1.0 (by /u/bodemurairi)'
     }
