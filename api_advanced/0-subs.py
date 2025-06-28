@@ -3,6 +3,7 @@
 from a given subreddit
 """
 
+import sys
 import requests
 
 
@@ -26,3 +27,10 @@ def number_of_subscribers(subreddit):
         return 0
     except (KeyError, ValueError):
         return 0
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: ./0-subs.py <subreddit>")
+        sys.exit(1)
+    subreddits = sys.argv[1]
+    print(number_of_subscribers(subreddits))
