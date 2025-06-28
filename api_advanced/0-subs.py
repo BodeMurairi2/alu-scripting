@@ -1,7 +1,10 @@
 #!/usr/bin/python3
-"""Module that returns number of subscribers from a given subreddit"""
+"""Module that returns number of subscribers 
+from a given subreddit
+"""
 
 import requests
+
 
 def number_of_subscribers(subreddit):
     """Returns number of subscribers for a subreddit"""
