@@ -23,15 +23,17 @@ def top_ten(subreddit):
     limit = 10
     url = '{}/r/{}/.json?sort={}&limit={}'.format(
         base_url, subreddit, sort, limit)
-    headers = {'User-Agent':
-               'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36'
-               ' (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36'
-               }
-    response = requests.get(url,
-                            headers=headers,
-                            timeout=10,
-                            allow_redirects=False
-                            )
+    headers = {
+        'User-Agent':
+        'Mozilla/5.0 (Windows; U; Windows NT 5.1; de; rv:1.9.2.3) \
+        Gecko/20100401 Firefox/3.6.3 (FM Scene 4.6.1)'
+    }
+    response = requests.get(
+        url,
+        headers=headers,
+        timeout=10,
+        allow_redirects=False
+    )
     if response.status_code == 200:
         for post in response.json()['data']['children'][0:10]:
             print(post['data']['title'])
