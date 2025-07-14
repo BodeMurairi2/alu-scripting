@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Print the first 10 hot posts"""
+"""A function that prints top 10 posts"""
 
 import requests
 
