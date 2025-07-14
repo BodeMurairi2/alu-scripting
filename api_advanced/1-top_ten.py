@@ -1,6 +1,5 @@
 #!/usr/bin/python3
-"""
-1-top_ten module
+"""1-top_ten module
 
 This script defines a function that queries the Reddit API and prints the
 titles of the top 10 hot posts for a given subreddit.
@@ -20,8 +19,13 @@ def top_ten(subreddit):
     }
 
     try:
-        response = requests.get(url, headers=headers,
-                                params=params, allow_redirects=False, timeout=10)
+        response = requests.get(
+            url,
+            headers=headers,
+            params=params,
+            allow_redirects=False,
+            timeout=10
+        )
 
         if response.status_code != 200:
             print(None)
