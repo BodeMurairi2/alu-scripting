@@ -4,7 +4,6 @@
 from a given subreddit
 """
 
-import sys
 import requests
 
 
