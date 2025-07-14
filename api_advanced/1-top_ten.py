@@ -9,7 +9,8 @@ import requests
 def top_ten(subreddit):
     """Prints the top ten hot posts for a given subreddit"""
 
-    url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
+    url = f"https://www.reddit.com/r/{subreddit}/hot.json"
+
     headers = {
         'User-Agent': 'linux:subcountscript:v1.0 (by /u/bodemurairi)'
     }
@@ -19,6 +20,7 @@ def top_ten(subreddit):
                             allow_redirects=False
                             )
 
+    # raise an exception if response failed
     response.raise_for_status()
 
     data = response.json()
