@@ -7,17 +7,17 @@ import requests
 
 
 def top_ten(subreddit):
-    """print the first 10 hot posts"""
+    """print the first 10 hot posts for a given subreddits"""
 
+    api_url = f"https://www.reddit.com/r/{subreddit}/hot.json"
     headers = {
         'User-Agent': 'linux:subcountscript:v1.0 (by /u/bodemurairi)'
     }
-
-    api_url = f"https://www.reddit.com/r/{subreddit}/hot.json"
-
     response = requests.get(url=api_url,
                             headers=headers,
-                            timeout=10)
+                            timeout=10,
+                            allow_redirects=False
+                            )
 
     response.raise_for_status()
 
