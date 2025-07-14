@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """Print the first 10 hot posts"""
 
-import sys
 import requests
 
 
@@ -33,11 +32,3 @@ def top_ten(subreddit):
 
     for post in range(10):
         print(title_post[post]['data']['title'])
-
-
-if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: ./1-top_ten.py <subreddit>")
-        sys.exit(1)
-    subreddits = sys.argv[1]
-    top_ten(subreddits)
