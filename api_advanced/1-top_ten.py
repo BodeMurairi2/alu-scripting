@@ -1,26 +1,39 @@
 #!/usr/bin/python3
-"""
- A function that queries the Reddit API and prints the titles.
-"""
-
+"""Module that consumes the Reddit API and prints the titles of the first
+10 hot posts listed for a given subreddit."""
 import requests
 
 
 def top_ten(subreddit):
-    """Prints the top ten hot posts for a given subreddit"""
+    """Queries the Reddit API and prints the titles of the first 10 hot
+    posts listed for a given subreddit.
 
-    url = "https://www.reddit.com/r/{}/hot.json?limit=10".format(subreddit)
-    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
-    response = requests.get(url, headers=headers)
+    If not a valid subreddit, print None.
+    Invalid subreddits may return a redirect to search results. Ensure
+    that you are not following redirects.
 
-    if response.status_code != 200:
+    Args:
+        subreddit (str): subreddit
+
+    Returns:
+        str: titles of the first 10 hot posts
+    """
+    base_url = 'https://www.reddit.com'
+    sort = 'top'
+    limit = 10
+    url = '{}/r/{}/.json?sort={}&limit={}'.format(
+        base_url, subreddit, sort, limit)
+    headers = {'User-Agent':
+               'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36'
+               ' (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36'
+               }
+    response = requests.get(url,
+                            headers=headers,
+                            timeout=10,
+                            allow_redirects=False
+                            )
+    if response.status_code == 200:
+        for post in response.json()['data']['children'][0:10]:
+            print(post['data']['title'])
+    else:
         print(None)
-        return
-
-    data = response.json().get("data")
-    if data is None or len(data.get("children")) == 0:
-        print(None)
-        return
-
-    for child in data.get("children"):
-        print(child.get("data").get("title"))
