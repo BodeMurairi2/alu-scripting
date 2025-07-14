@@ -9,18 +9,28 @@ import requests
 def top_ten(subreddit):
     """Prints the top ten hot posts for a given subreddit"""
 
-    url = "https://www.reddit.com/r/{}/hot.json?limit=10".format(subreddit)
-    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
-    response = requests.get(url, headers=headers)
+    url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
+    headers = {
+        'User-Agent': 'linux:subcountscript:v1.0 (by /u/bodemurairi)'
+    }
+    response = requests.get(url=url,
+                            headers=headers,
+                            timeout=10,
+                            allow_redirects=False
+                            )
 
-    if response.status_code != 200:
-        print(None)
+    response.raise_for_status()
+
+    data = response.json()
+    title_post = data['data']['children']
+
+    if not title_post:
+        print(f'No post found for {subreddit}')
         return
 
-    data = response.json().get("data")
-    if data is None or len(data.get("children")) == 0:
-        print(None)
-        return
+    if len(title_post) < 10:
+        raise KeyError(f'Not many posts for {subreddit}\n'
+                       f'Number of posts: {len(title_post)}')
 
-    for child in data.get("children"):
-        print(child.get("data").get("title"))
+    for post in range(10):
+        print(title_post[post]['data']['title'])
