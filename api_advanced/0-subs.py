@@ -21,7 +21,7 @@ def number_of_subscribers(subreddit):
                             timeout=10,
                             allow_redirects=False)
 
-    response.raise_for_status()
-
+    if response.status_code != 200:
+        return 0
     response_data = response.json()
     return response_data['data']['subscribers']
