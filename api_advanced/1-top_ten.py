@@ -1,11 +1,13 @@
 #!/usr/bin/python3
-"""A function that prints top 10 posts"""
+"""
+ A function that queries the Reddit API and prints the titles.
+"""
 
 import requests
 
 
 def top_ten(subreddit):
-    """Return the first 10 hot posts"""
+    """print the first 10 hot posts"""
 
     headers = {
         'User-Agent': 'linux:subcountscript:v1.0 (by /u/bodemurairi)'
