@@ -14,7 +14,9 @@ def top_ten(subreddit):
 
     api_url = f"https://www.reddit.com/r/{subreddit}/hot.json"
 
-    response = requests.get(url=api_url, headers=headers, timeout=10)
+    response = requests.get(url=api_url,
+                            headers=headers,
+                            timeout=10)
 
     response.raise_for_status()
 
