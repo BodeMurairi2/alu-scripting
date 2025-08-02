@@ -1,43 +1,26 @@
 #!/usr/bin/python3
-"""Module that consumes the Reddit API and prints the titles of the first
-10 hot posts listed for a given subreddit."""
+"""Contains top_ten function"""
 import requests
 
 
 def top_ten(subreddit):
-    """Queries the Reddit API and prints the titles of the first 10 hot
-    posts listed for a given subreddit.
-
-    If not a valid subreddit, print None.
-    Invalid subreddits may return a redirect to search results. Ensure
-    that you are not following redirects.
-
-    Args:
-        subreddit (str): subreddit
-
-    Returns:
-        str: titles of the first 10 hot posts
-    """
-    base_url = 'https://www.reddit.com'
-    sort = 'top'
-    limit = 10
-    url = '{}/r/{}/.json?sort={}&limit={}'.format(
-        base_url, subreddit, sort, limit)
+    """Print the titles of the 10 hottest posts on a given subreddit."""
+    url = "https://www.reddit.com/r/{}/hot/.json".format(subreddit)
     headers = {
-        'User-Agent':
-        'Mozilla/5.0 (Windows; U; Windows NT 5.1; de; rv:1.9.2.3) \
-        Gecko/20100401 Firefox/3.6.3 (FM Scene 4.6.1)'
+        "User-Agent": "0x16-api_advanced:project:\
+v1.0.0 (by /u/firdaus_cartoon_jr)"
     }
-    response = requests.get(
-        url,
-        headers=headers,
-        timeout=10,
-        allow_redirects=False
-    )
-    if response.status_code != 200:
-        print(None)
+    params = {
+        "limit": 10
+    }
+    response = requests.get(url,
+                            headers=headers,
+                            params=params,
+                            allow_redirects=False,
+                            timeout=10
+                            )
+    if response.status_code == 404:
+        print("None")
         return
-    else:
-        print("OK")
-        for post in response.json()['data']['children']:
-            print(post['data']['title'])
+    results = response.json().get("data")
+    [print(c.get("data").get("title")) for c in results.get("children")]
